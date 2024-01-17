@@ -24,7 +24,7 @@ pipeline{
 //                    sh(script: "${tool 'MVN_HOME'}/bin/mvn clean install", label: 'linux')     // For Linux
 //                }
 //            }
-//            }
+
 
         stages {
             stage('Maven Build') {
