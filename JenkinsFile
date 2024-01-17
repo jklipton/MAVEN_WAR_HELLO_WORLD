@@ -14,14 +14,17 @@ pipeline{
     stages {
         stage('Maven Build') {
             steps {
-                // Check the operating system
                 script {
+                    // Determine the correct Maven command based on the OS
                     def mavenCommand = isUnix() ? 'sh' : 'bat'
 
-                    // Trigger Maven build
+                    // Run Maven build
                     echo "Running Maven build..."
-                    ${mavenCommand} script} "${tool 'MVN_HOME'}/bin/mvn clean install", returnStatus: true
+                    bat(script: "${tool 'MVN_HOME'}/bin/mvn clean install", label: 'windows') // For Windows
+                    sh(script: "${tool 'MVN_HOME'}/bin/mvn clean install", label: 'linux')     // For Linux
                 }
+            }
+            }
 
 //**********
       stage('Docker Build'){
