@@ -4,13 +4,26 @@ pipeline{
       maven 'MVN_HOME'
     }
 
-    stages{
-       stage('Maven Build') {
-         steps {
-           echo 'Here you should trigger a maven build of your application using either bat(windows) or sh(linux)'
-         }
-       }
-       
+//    stages{
+//       stage('Maven Build') {
+//         steps {
+//           echo 'Here you should trigger a maven build of your application using either bat(windows) or sh(linux)'
+//         }
+//       }
+
+    stages {
+        stage('Maven Build') {
+            steps {
+                // Check the operating system
+                script {
+                    def mavenCommand = isUnix() ? 'sh' : 'bat'
+
+                    // Trigger Maven build
+                    echo "Running Maven build..."
+                    ${mavenCommand} script: "${tool 'MVN_HOME'}/bin/mvn clean install", returnStatus: true
+                }
+
+//**********
       stage('Docker Build'){
             steps{
                 echo 'In this step you should build your docker image using the docker build command'
