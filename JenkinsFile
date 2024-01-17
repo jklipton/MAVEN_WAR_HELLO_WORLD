@@ -20,7 +20,7 @@ pipeline{
 
                     // Trigger Maven build
                     echo "Running Maven build..."
-                    ${mavenCommand} script: "${tool 'MVN_HOME'}/bin/mvn clean install", returnStatus: true
+                    ${mavenCommand} script} "${tool 'MVN_HOME'}/bin/mvn clean install", returnStatus: true
                 }
 
 //**********
