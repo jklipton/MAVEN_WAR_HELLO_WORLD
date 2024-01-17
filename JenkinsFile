@@ -10,21 +10,29 @@ pipeline{
 //           echo 'Here you should trigger a maven build of your application using either bat(windows) or sh(linux)'
 //         }
 //       }
+//
+//    stages {
+//        stage('Maven Build') {
+//            steps {
+//                script {
+//                    // Determine the correct Maven command based on the OS
+//                    def mavenCommand = isUnix() ? 'sh' : 'bat'
+//
+//                    // Run Maven build
+//                    echo "Running Maven build..."
+//                    bat(script: "${tool 'MVN_HOME'}/bin/mvn clean install", label: 'windows') // For Windows
+//                    sh(script: "${tool 'MVN_HOME'}/bin/mvn clean install", label: 'linux')     // For Linux
+//                }
+//            }
+//            }
 
-    stages {
-        stage('Maven Build') {
-            steps {
-                script {
-                    // Determine the correct Maven command based on the OS
-                    def mavenCommand = isUnix() ? 'sh' : 'bat'
-
-                    // Run Maven build
-                    echo "Running Maven build..."
-                    bat(script: "${tool 'MVN_HOME'}/bin/mvn clean install", label: 'windows') // For Windows
-                    sh(script: "${tool 'MVN_HOME'}/bin/mvn clean install", label: 'linux')     // For Linux
+        stages {
+            stage('Maven Build') {
+                steps {
+                    bat "${tool 'MVN_HOME'}/bin/mvn clean install"
                 }
             }
-            }
+            }     
 
 //**********
       stage('Docker Build'){
