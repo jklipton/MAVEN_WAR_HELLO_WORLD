@@ -1,13 +1,14 @@
 pipeline{
     agent any
     tools {
-      maven 'MVN_HOME'
+      maven '/usr/share/maven'
     }
 
     stages{
        stage('Maven Build') {
          steps {
-           echo 'Here you should trigger a maven build of your application using either bat(windows) or sh(linux)'
+          // echo 'Here you should trigger a maven build of your application using either bat(windows) or sh(linux)'
+            sh 'mvn clean install'
          }
        }
        
