@@ -1,7 +1,7 @@
 pipeline {
     agent any
     tools {
-        maven '/usr/share/maven'
+      maven 'MVN_HOME'
     }
 
     stages{
