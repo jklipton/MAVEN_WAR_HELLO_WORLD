@@ -37,7 +37,7 @@ pipeline {
                 //echo 'Then you need to push this image to the public registry dockerhub into your account'
                 //echo 'Use the docker push command'
                 
-                script {
+                steps {
                     // Log in to Docker Hub using the token
                     withCredentials([string(credentialsId: 'dckr_pat_xpjV36IW_4G7hzV5bgt6b96dwQ4', variable: 'DOCKERHUB_TOKEN')]) {
                         sh "docker login -u _token -p ${DOCKERHUB_TOKEN} registry.hub.docker.com"
