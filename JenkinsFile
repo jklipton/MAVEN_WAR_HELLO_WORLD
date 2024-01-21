@@ -48,6 +48,8 @@ pipeline {
                             sh "docker push jklipton/devops ."
                             }
                         }
+                        }
+                        }
 
                 stage('Docker Deploy'){
                     steps{
@@ -57,4 +59,5 @@ pipeline {
                    }  
                 }
 
+    }
     }
