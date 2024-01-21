@@ -49,6 +49,8 @@ pipeline {
                             }
                         }
                         }
+                        }
+                        }
 
 
                 stage('Docker Deploy'){
@@ -60,5 +62,3 @@ pipeline {
                 }
 
     }
-    }
-}
