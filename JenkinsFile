@@ -28,7 +28,7 @@ pipeline {
                     //    echo 'So you need to build an image from the WAR that you generated previously'
                     //    echo 'Remember that starting point of your image should be tomcat in order to serve the application on the web'
                         echo 'Build jklipton/devops'
-                        sh "docker build -t jklipton/devops ."
+                        sh "docker build -t jklipton/devops:latest ."
                           }
                     }
         
@@ -47,7 +47,7 @@ pipeline {
                             // Build and push Docker image
                             // sh "docker build -t your-docker-image-name ."
                             sh "docker login -u jklipton -p dckr_pat_I3cu_eBfFqdCwuegAsEkmXHTpTg https://registry.hub.docker.com"
-                            sh "docker push jklipton/devops"
+                            sh "docker push jklipton/devops:latest"
                         }
                         }
                         }
