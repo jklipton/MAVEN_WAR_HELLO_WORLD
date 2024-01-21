@@ -55,6 +55,15 @@
 - name: Deploy Docker Container
   hosts: 192.168.7.203
   become: true
+
+  tasks:
+    - name: Install required Python libraries
+      pip:
+        name:
+          - docker
+    - name: Set Python interpreter for Ansible
+      ansible.builtin.set_fact:
+        ansible_python_interpreter: /usr/bin/python3
       
   tasks:
     - name: Pull image and create container using docker_container
