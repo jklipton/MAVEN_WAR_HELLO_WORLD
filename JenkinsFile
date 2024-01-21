@@ -1,61 +1,60 @@
 pipeline {
     agent any
 
-    environment {
- // Set Docker Hub credentials as environment variables
-        DOCKERHUB_USERNAME = credentials('jklipton')
-        DOCKERHUB_TOKEN = credentials('dckr_pat_xpjV36IW_4G7hzV5bgt6b96dwQ4')
-    }
+        environment {
+         // Set Docker Hub credentials as environment variables
+            DOCKERHUB_USERNAME = credentials('jklipton')
+            DOCKERHUB_TOKEN = credentials('dckr_pat_xpjV36IW_4G7hzV5bgt6b96dwQ4')
+            }
 
 
-    tools {
-      maven 'MVN_HOME'
-    }
+        tools {
+          maven 'MVN_HOME'
+            }
 
-    stages{
-       stage('Maven Build') {
-         steps {
-          // echo 'Here you should trigger a maven build of your application using either bat(windows) or sh(linux)'
-            sh 'mvn clean install'
-         }
-       }
+        stages{
+            stage('Maven Build') {
+                 steps {
+                  // echo 'Here you should trigger a maven build of your application using either bat(windows) or sh(linux)'
+                    sh 'mvn clean install'
+                        }
+                   }    
        
-      stage('Docker Build'){
-            steps{
-            //    echo 'In this step you should build your docker image using the docker build command'
-            //    echo 'So you need to build an image from the WAR that you generated previously'
-            //    echo 'Remember that starting point of your image should be tomcat in order to serve the application on the web'
-                   echo 'Build jlipton/devops'
-                    sh "docker build -t jlipton/devops ."
-            }
-        }
+            stage('Docker Build'){
+                    steps{
+                    //    echo 'In this step you should build your docker image using the docker build command'
+                    //    echo 'So you need to build an image from the WAR that you generated previously'
+                    //    echo 'Remember that starting point of your image should be tomcat in order to serve the application on the web'
+                        echo 'Build jlipton/devops'
+                        sh "docker build -t jlipton/devops ."
+                          }
+                    }
         
-      stage('DockerHub Push'){
-            //steps{
-                //echo 'You should first login to your github account using the withCredentials synatx'
-                //echo 'And for that you need to create the appropriate credentials to access the github account in Jenkins'
-                //echo 'Then you need to push this image to the public registry dockerhub into your account'
-                //echo 'Use the docker push command'
+              stage('DockerHub Push'){
+                    // steps
+                        //echo 'You should first login to your github account using the withCredentials synatx'
+                        //echo 'And for that you need to create the appropriate credentials to access the github account in Jenkins'
+                        //echo 'Then you need to push this image to the public registry dockerhub into your account'
+                        //echo 'Use the docker push command'
                 
-                steps {
-                    // Log in to Docker Hub using the token
-                    withCredentials([string(credentialsId: 'dckr_pat_xpjV36IW_4G7hzV5bgt6b96dwQ4', variable: 'DOCKERHUB_TOKEN')]) {
-                        sh "docker login -u _token -p ${DOCKERHUB_TOKEN} registry.hub.docker.com"
-                        docker.withRegistry('https://registry.hub.docker.com', 'dockerhub-credentials-id') {
+                    steps {
+                        // Log in to Docker Hub using the token
+                        withCredentials([string(credentialsId: 'dckr_pat_xpjV36IW_4G7hzV5bgt6b96dwQ4', variable: 'DOCKERHUB_TOKEN')]) {
+                            sh "docker login -u _token -p ${DOCKERHUB_TOKEN} registry.hub.docker.com"
+                            docker.withRegistry('https://registry.hub.docker.com', 'dockerhub-credentials-id') {
                             docker.image('jlipton/devops').push()
-                        }
-                        }
+                                    }
+                            }
+                            }
                         }
 
-            }
-        }
-  
-      stage('Docker Deploy'){
-            steps{
-                echo 'You should use the ansiblePlaybook syntax in order to call your playbook'
-                echo 'But before that you need to create an agent in order to execute the playbook on the Ansible controle node machine'
-            }
-       }        
+                stage('Docker Deploy'){
+                    steps{
+                        echo 'You should use the ansiblePlaybook syntax in order to call your playbook'
+                        echo 'But before that you need to create an agent in order to execute the playbook on the Ansible controle node machine'
+                        }
+                   }  
+                }
 
     }
 
