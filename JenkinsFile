@@ -41,7 +41,7 @@ pipeline {
                     steps {
                         // Log in to Docker Hub using the token
                             echo 'Login to Docker-Hub with docker-hub-pass credentials'
-                            sh "docker login -u $(DOCKER_CREDENTIALS_USR)-p $(DOCKER_CREDENTIALS_PSW)"
+                            sh "docker login -u ${DOCKER_CREDENTIALS_USR}-p ${DOCKER_CREDENTIALS_PSW}"
                             echo'Push Docker image to Docker Hub'
                             sh"docker push jklipton/devops"
                             }
