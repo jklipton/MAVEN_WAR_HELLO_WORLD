@@ -3,10 +3,9 @@ pipeline {
 
         environment {
          // Set Docker Hub credentials as environment variables
-         //   DOCKERHUB_USERNAME = credentials('jklipton')
-            DOCKERHUB_TOKEN = credentials('dckr_pat_iOcIds0aaZ5NPJNOTx_ISt_NS9U')
-         //   DOCKER_CREDENTIALS = credentials('docker-hub-pass')
-            }
+                    DOCKERHUB_USERNAME = 'jklipton'
+                    DOCKERHUB_TOKEN = credentials('dckr_pat_I3cu_eBfFqdCwuegAsEkmXHTpTg')
+                  }
 
 
         tools {
@@ -41,10 +40,11 @@ pipeline {
                     steps {
                         script {
                             // Log in to Docker Hub using the token
-                            withCredentials([string(credentialsId: 'dckr_pat_iOcIds0aaZ5NPJNOTx_ISt_NS9U', variable: 'DOCKERHUB_TOKEN')]) {
-                            docker.withRegistry('https://registry.hub.docker.com', 'dockerhub-credentials-id') {
+                            //withCredentials([string(credentialsId: 'dckr_pat_I3cu_eBfFqdCwuegAsEkmXHTpTg', variable: 'DOCKERHUB_TOKEN')]) {
+                            //docker.withRegistry('https://registry.hub.docker.com', 'dockerhub-credentials-id') {
                             // Build and push Docker image
                             // sh "docker build -t your-docker-image-name ."
+                            sh "docker login -u ${DOCKERHUB_USERNAME} -p ${DOCKERHUB_TOKEN} registry.hub.docker.com"
                             sh "docker push jklipton/devops ."
                             }
                         }
