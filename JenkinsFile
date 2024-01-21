@@ -42,7 +42,7 @@ pipeline {
                     withCredentials([string(credentialsId: 'dckr_pat_xpjV36IW_4G7hzV5bgt6b96dwQ4', variable: 'DOCKERHUB_TOKEN')]) {
                         sh "docker login -u _token -p ${DOCKERHUB_TOKEN} registry.hub.docker.com"
                         docker.withRegistry('https://registry.hub.docker.com', 'dockerhub-credentials-id') {
-                            docker.image('your-docker-image-name').push()
+                            docker.image('jlipton/devops').push()
                         }
                         }
                         }
@@ -50,12 +50,12 @@ pipeline {
             }
         }
   
-      //stage('Docker Deploy'){
-      //      steps{
-      //          echo 'You should use the ansiblePlaybook syntax in order to call your playbook'
-       //         echo 'But before that you need to create an agent in order to execute the playbook on the Ansible controle node machine'
-      //      }
-       // }        
-    }
+      stage('Docker Deploy'){
+            steps{
+                echo 'You should use the ansiblePlaybook syntax in order to call your playbook'
+                echo 'But before that you need to create an agent in order to execute the playbook on the Ansible controle node machine'
+            }
+       }        
+    
     
 
