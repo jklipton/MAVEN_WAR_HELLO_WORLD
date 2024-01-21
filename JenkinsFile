@@ -3,8 +3,8 @@ pipeline {
 
         environment {
          // Set Docker Hub credentials as environment variables
-            DOCKERHUB_USERNAME = credentials('jklipton')
-            DOCKERHUB_TOKEN = credentials('dckr_pat_xpjV36IW_4G7hzV5bgt6b96dwQ4')
+         //   DOCKERHUB_USERNAME = credentials('jklipton')
+            DOCKERHUB_TOKEN = credentials('dckr_pat_If6AN8-wT3v6BeXZq6gDlPRrCCU')
             }
 
 
@@ -43,7 +43,7 @@ pipeline {
                         withCredentials([string(credentialsId: 'dckr_pat_xpjV36IW_4G7hzV5bgt6b96dwQ4', variable: 'DOCKERHUB_TOKEN')]) {
                             sh "docker login -u _token -p ${DOCKERHUB_TOKEN} registry.hub.docker.com"
                             docker.withRegistry('https://registry.hub.docker.com', 'dockerhub-credentials-id') {
-                            docker.image('jlipton/devops').push()
+                            docker.image('jklipton/devops').push()
                                     }
                             }
                             }
