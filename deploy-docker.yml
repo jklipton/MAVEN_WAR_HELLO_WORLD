@@ -13,47 +13,17 @@
         name: docker
       become_user: root  # Use 'become_user' to run the task as root
 
-    - name: Download Docker repository file using the get_url
-      shell: sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
-
-    - name: Install Docker packages (engine) using yum module, reference https://docs.docker.com/engine/install/centos/#installation-methods
-      yum:
-        name:
-          - docker-ce
-          - docker-ce-cli
-          - containerd.io
-          - docker-builds-plugin
-          - docker-compose-plugin
-        state: present
-
-    - name: Start Docker service using the systemd module
-      systemd:
-        name: docker
-        state: started
-        enabled: yes
-        
-    - name: Install Python
-      yum:
-        name:
-          - python
-        state: present
-
-    - name: Download get-pip.py
-      get_url:
-        url: https://bootstrap.pypa.io/pip/2.7/get-pip.py
-        dest: /tmp/get-pip.py
-
-    - name: Install pip
-      command: python /tmp/get-pip.py
-      
-    - name: Upgrade pip
-      command: pip install --upgrade pip
+    # Other tasks...
 
 - name: Deploy Docker Container
   hosts: 192.168.7.203
   become: true
   
   tasks:
+    - name: Debug Python interpreter version
+      debug:
+        var: ansible_python.version
+
     - name: Pull image and create container using docker_container
       docker_container:
         name: tomcat_devops
