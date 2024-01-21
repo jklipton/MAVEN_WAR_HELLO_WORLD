@@ -12,14 +12,6 @@
       pip:
         name: docker
 
-    - hosts: 192.168.7.203
-      become: true
-      tasks:
-        - name: Install Docker SDK for Python
-          pip:
-            name: docker
-          become_user: root  # Use 'become_user' to run the task as root
-
     - name: Download Docker repository file using the get_url
       shell: sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
 
@@ -60,26 +52,26 @@
       pip:
         name: docker
 
-- name: Deploy Docker Container
-  hosts: 192.168.7.203
-  become: true
-  
-  tasks:
-    - name: Pull image and create container using docker_container
-      docker_image:
-        name: jklipton/devops:latest
-        source: pull
+    - name: Deploy Docker Container
+      hosts: 192.168.7.203
+      become: true
+      
+      tasks:
+        - name: Pull image and create container using docker_container
+          docker_image:
+            name: jklipton/devops:latest
+            source: pull
 
-    - name: Start the container using docker_container
-      docker_container:
-        name: tomcat_devops
-        image: jklipton/devops:latest
-        state: started
-        tty: true
-        auto_remove: true
-        ports:
-          - "8080:8080"
+        - name: Start the container using docker_container
+          docker_container:
+            name: tomcat_devops
+            image: jklipton/devops:latest
+            state: started
+            tty: true
+            auto_remove: true
+            ports:
+              - "8080:8080"
 
-    - name: logout of Dockerhub
-      docker_login:
-        state: absent
+        - name: logout of Dockerhub
+          docker_login:
+            state: absent
