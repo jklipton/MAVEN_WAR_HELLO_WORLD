@@ -1,11 +1,11 @@
 pipeline {
     agent any
 
-        environment {
+      //  environment {
          // Set Docker Hub credentials as environment variables
-                    DOCKERHUB_USERNAME = 'jklipton'
-                    DOCKERHUB_TOKEN = credentials('dckr_pat_I3cu_eBfFqdCwuegAsEkmXHTpTg')
-                  }
+      //              DOCKERHUB_USERNAME = 'jklipton'
+      //              DOCKERHUB_TOKEN = credentials('dckr_pat_I3cu_eBfFqdCwuegAsEkmXHTpTg')
+      //            }
 
 
         tools {
