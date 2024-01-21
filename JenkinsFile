@@ -44,7 +44,7 @@ pipeline {
                             //docker.withRegistry('https://registry.hub.docker.com', 'dockerhub-credentials-id') 
                             // Build and push Docker image
                             // sh "docker build -t your-docker-image-name ."
-                            sh "docker login -u ${DOCKERHUB_USERNAME} -p ${DOCKERHUB_TOKEN} registry.hub.docker.com"
+                            sh "docker login -u ${DOCKERHUB_USERNAME} -p ${DOCKERHUB_TOKEN} hub.docker.com"
                             sh "docker push jklipton/devops ."
                         }
                         }
