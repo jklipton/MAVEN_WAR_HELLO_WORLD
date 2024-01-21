@@ -3,7 +3,7 @@ pipeline {
 
         environment {
          // Set Docker Hub credentials as environment variables
-         //   DOCKERHUB_USERNAME = credentials('jklipton')
+            DOCKERHUB_USERNAME = credentials('jklipton')
             DOCKERHUB_TOKEN = credentials('dckr_pat_If6AN8-wT3v6BeXZq6gDlPRrCCU')
             }
 
